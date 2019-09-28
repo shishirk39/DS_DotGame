@@ -7,6 +7,14 @@ var socketIO = require('socket.io');
 var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
+var cron = require('node-cron');
+ 
+cron.schedule('*/15 * * * *', () => {
+	players = {};
+	count =0;
+  //console.log('restarting server every fifteen minutes');
+});
+
 
 app.set('port', 5000);
 app.use('/static', express.static(__dirname + '/static'));
@@ -25,8 +33,8 @@ io.on('connection', function(socket) {
    // console.log("socketId: "+socket.id);  
   socket.on('new player', function(playerName) {
     var newname=count+' '+playerName;
-    console.log(newname);
-    console.log(count);
+   // console.log(newname);
+    //console.log(count);
     count++;
     players[socket.id] = {
       x: 300,
