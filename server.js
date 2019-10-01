@@ -38,7 +38,7 @@ io.on('connection', function(socket) {
     //console.log(count);
     
     players[socket.id] = {
-      x: 300,
+      x: 700,
       y: 300,
       num:count,
       name:playerName,
