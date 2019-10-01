@@ -57,7 +57,9 @@ socket.on('state', function(players) {
   		var player1 =players[id1];
   		  		for(var id2 in players){
   			var player2=players[id2];
-  			if(id1 != id2 && (player1.x==player2.x && player1.y==player2.y) && (player1.x!=300 || player1.y!=300)){
+       if((id1 != id2) && ((Math.abs(player1.x-player2.x)<20) && (Math.abs(player1.y-player2.y)<20) ))
+  			//if((id1 != id2) && (player1.x==player2.x && player1.y==player2.y) && (player1.x!=700 || player1.y!=300))
+        {
   				//console.log(player1.name+' wins !');
   				context.clearRect(0,0,1500,650);
   				context.strokeText(player1.name+' GOT a POINT! ',1300,50);
