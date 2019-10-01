@@ -8,32 +8,32 @@ var movement = {
 }
 document.addEventListener('keydown', function(event) {
   switch (event.keyCode) {
-    case 65: // A
+    case 37: // arrowleft
       movement.left = true;
       break;
-    case 87: // W
+    case 38: // arrowup
       movement.up = true;
       break;
-    case 68: // D
+    case 39: // arrowright
       movement.right = true;
       break;
-    case 83: // S
+    case 40: // arrowDown
       movement.down = true;
       break;
   }
 });
 document.addEventListener('keyup', function(event) {
   switch (event.keyCode) {
-    case 65: // A
+    case 37: // arrowleft
       movement.left = false;
       break;
-    case 87: // W
+    case 38: // arrowup
       movement.up = false;
       break;
-    case 68: // D
+    case 39: // arrowright
       movement.right = false;
       break;
-    case 83: // S
+    case 40: // arrowdown
       movement.down = false;
       break;
   }
@@ -45,13 +45,13 @@ setInterval(function() {
 }, 1000 / 60);
 
 var canvas = document.getElementById('canvas');
-canvas.width = 800;
-canvas.height = 600;
+canvas.width = 1500;
+canvas.height = 650;
 var context = canvas.getContext('2d');
 socket.on('state', function(players) {
   //console.log(players);
   var colours=['silver','grey','red','black','maroon','yellow','olive','green','blue','purple','aqua'];
-  context.clearRect(0, 0, 800, 600);
+  context.clearRect(0, 0, 1500, 650);
   
   loop1:  for(var id1 in players){
   		var player1 =players[id1];
@@ -59,8 +59,8 @@ socket.on('state', function(players) {
   			var player2=players[id2];
   			if(id1 != id2 && (player1.x==player2.x && player1.y==player2.y) && (player1.x!=300 || player1.y!=300)){
   				//console.log(player1.name+' wins !');
-  				context.clearRect(0,0,800,600);
-  				context.strokeText(player1.name+' GOT a POINT! ',600,50);
+  				context.clearRect(0,0,1500,650);
+  				context.strokeText(player1.name+' GOT a POINT! ',1300,50);
   				socket.emit('score',id1);
   				//player1.score=player1.score+1;
   				break loop1;
@@ -75,23 +75,28 @@ socket.on('state', function(players) {
     
     context.fillStyle = colours[id.charAt(id.length-1).charCodeAt(0)%10];
     context.beginPath();
-    context.arc(player.x, player.y, 10, 0, 2 * Math.PI);
-    context.strokeText(player.name,player.x+10,player.y);
-    context.strokeText(player.score,player.x+60,player.y)
+    context.arc(player.x, player.y, 15, 0, 2 * Math.PI);
     context.fill();
+    context.font="15px Georgia";
+    //context.fillStyle = colours[id.charAt(id.length-1).charCodeAt(0)%10];
+    context.strokeText(player.num,player.x,player.y-20);
+    context.strokeText(player.name,player.x+20,player.y);
+    context.strokeText(player.score,player.x,player.y+25);
+    
   }
 });
 
 socket.on('winner',function(players){
-	var max=0; var playername;
+	var max=0; var playername; var playernum;
 for(id in players){
 	player=players[id];
 	if(player.score>max){
 		max=player.score;
 		playername=player.name;
+    playernum=player.num;
 	}
 }
 if(playername!=undefined)
-document.getElementById('winner').innerHTML='winner is : '+playername;
+document.getElementById('winner').innerHTML='WINNER : ['+playernum+']   '+playername;
 
 });

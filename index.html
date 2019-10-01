@@ -1,24 +1,28 @@
 <html>
   <head>
-    <title>A Multiplayer Dot Game</title>
+    <title>DotChase Game</title>
+    <link rel="icon" href="icon.png">
     <style>
       canvas {
-        width: 800px;
-        height: 600px;
+        width: 1500px;
+        height: 650px;
         border: 5px solid black;
       }
     </style>
     <script src="/socket.io/socket.io.js"></script><script>
-      var playerName = prompt("Please enter your name : ",'player');
+      var playerName = prompt("Please enter your NAME : ","Player");
+      alert("THE MULTIPLAYER DOT GAME \n\nHow To Play part 1:\n1. The number ABOVE your DOT will be your PLAYER NUMBER.\n2. You can view YOUR NAME to the RIGHT of your DOT.\n3.Your Score will be shown BELOW your DOT\n");
+      alert("THE MULTIPLAYER DOT GAME \n\nHow To Play part 2:\n4. You need to chase the DOTS having PLAYER NUMBER GREATER than YOURS.\n5. Going to PLAYER NUMBER SMALLER than you will result in INCREASE of THEIR SCORE and NONE in YOURS.\n6. DON'T go OUT of the given Boundary.");
+      alert("THE MULTIPLAYER DOT GAME \n\nHow To Play part 3:\n7.Move your DOT using ARROW KEYS\n\nPRO TIP: If you have PLAYER NUMBER 0 you can chase all DOTS available. And if you have GREATEST PLAYER NUMBER , you can enjoy RUNNING away from ALL OTHER DOTS.\nENJOY AND HAVE FUN!");
     </script>
   </head>
   <body>
     <canvas id="canvas"></canvas>
-    <div id="winner" style="color:green;padding:10px;text-align: center;font-weight: bold;"></div>
-    <div style="color:red;padding:20px" >You need to chase and stay on the player numbers greater than you. More time you stay on them more points you get.<br>
+    <div id="winner" style="color:green;padding:10px;text-align: center;font:20px Georgia;;font-weight: bold;"></div>
+   <!-- <div style="color:red;padding:20px" >You need to chase and stay on the player numbers greater than you. More time you stay on them more points you get.<br>
       Don't go to players numbers lower than you as it will result into no increase in your score but increase in theirs.<br>
     No points granted for staying over player who stays on starting(centre) point.<br>Game restarts every 15 minutes</div>
-  <div>
+  <div> -->
   </body>
 
 

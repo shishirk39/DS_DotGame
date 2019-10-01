@@ -31,32 +31,38 @@ var count=0;
 var players = {};
 io.on('connection', function(socket) {
    // console.log("socketId: "+socket.id);  
+   
   socket.on('new player', function(playerName) {
-    var newname=count+' '+playerName;
+    //var newname=count+' '+playerName;
    // console.log(newname);
     //console.log(count);
-    count++;
+    
     players[socket.id] = {
       x: 300,
       y: 300,
-      name:newname,
+      num:count,
+      name:playerName,
       score:0
     };
-    
+    count++;
   });
   socket.on('movement', function(data) {
     var player = players[socket.id] || {};
     if (data.left) {
-      player.x -= 5;
+      player.x -=1;
+     
     }
     if (data.up) {
-      player.y -= 5;
+      player.y -=1;
+     
     }
     if (data.right) {
-      player.x += 5;
+      player.x +=1;
+     
     }
     if (data.down) {
-      player.y += 5;
+      player.y +=1;
+      
     }
   });
   socket.on('score',function(data){
