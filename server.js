@@ -9,10 +9,12 @@ var server = http.Server(app);
 var io = socketIO(server);
 var cron = require('node-cron');
  
-cron.schedule('*/15 * * * *', () => {
-	players = {};
-	count =0;
-  //console.log('restarting server every fifteen minutes');
+cron.schedule('*/3 * * * *', () => {
+  console.log('Restarting server every 3 minutes');
+  io.sockets.emit('reload');
+  players = {};
+  count =0;
+  time=120;
 });
 
 
@@ -78,3 +80,13 @@ setInterval(function() {
 setInterval(function() {
   io.sockets.emit('winner', players);
 }, 1000 /60);
+
+//Timer
+var time=120;
+var timer = setInterval(function() {
+  io.sockets.emit('timer',time);
+  if(time<0)
+    clearInterval(timer);
+  time--;
+},1000);
+

@@ -87,9 +87,9 @@ socket.on('state', function(players) {
     
   }
 });
-
+var playername
 socket.on('winner',function(players){
-	var max=0; var playername; var playernum;
+	var max=0; var playernum;
 for(id in players){
 	player=players[id];
 	if(player.score>max){
@@ -102,3 +102,32 @@ if(playername!=undefined)
 document.getElementById('winner').innerHTML='WINNER : ['+playernum+']   '+playername;
 
 });
+
+//Timer
+var min=0;
+var sec=0;
+socket.on('timer',function(t)
+{
+  if(t>=0)
+  {
+    console.log(t);
+    min = Math.floor(t/60);
+    sec = Math.floor(t%60);
+    
+    document.getElementById("timer-mins").innerHTML = "<span><strong>0"+ min +" MIN(S)</strong></span>";
+    if(sec<10)
+      document.getElementById("timer-secs").innerHTML = "<span><strong>0"+ sec +" SEC(S)</strong></span>";
+    else
+      document.getElementById("timer-secs").innerHTML = "<span><strong>"+ sec +" SEC(S)</strong></span>";
+  }
+  else
+  {
+    alert("\t\tGAME OVER!!!\n\n\t\tCONGRATULATIONS!!!!\n\t\tWINNER IS "+playername);
+  }
+});
+
+//Reload window
+socket.on('reload',function()
+{
+  location.reload(true);
+})
